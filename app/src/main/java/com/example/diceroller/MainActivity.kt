@@ -11,6 +11,10 @@ import kotlin.random.Random
 
 class MainActivity : AppCompatActivity() {
 
+    // Declare Globally
+    // lateinit :- used to promise diceImage not nullable.(we can consider as not null in anywhere we use it)
+    lateinit var diceImage : ImageView;
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -18,6 +22,7 @@ class MainActivity : AppCompatActivity() {
         rollButton.setOnClickListener{
             rollDice()
         }
+        diceImage = findViewById(R.id.dice_image)
     }
 
     private fun rollDice() {
@@ -31,8 +36,10 @@ class MainActivity : AppCompatActivity() {
             5 -> R.drawable.dice_5
             else -> R.drawable.dice_6
         }
-        // findViewById cost time --> solution : keep this ImageView in field
-        val diceImage : ImageView = findViewById(R.id.dice_image)
+
+        // By declaring 'diceImage' as LOCAL variable like this --> every time code runs create.
+        // So -> findViewById is time costly --> solution : keep this ImageView in field (AS GLOBAL)
+        // val diceImage : ImageView = findViewById(R.id.dice_image)
         diceImage.setImageResource(drawableResources)
     }
 }
